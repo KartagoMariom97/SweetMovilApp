@@ -25,6 +25,13 @@ abstract final class RouteNames {
   static const String providerRequests = 'provider-requests';
   static const String providerChatList = 'provider-chat-list';
   static const String providerProfileEdit = 'provider-profile-edit';
+
+  // Admin
+  static const String admin = 'admin';
+  static const String adminUsers = 'admin-users';
+  static const String adminBookings = 'admin-bookings';
+  static const String adminReports = 'admin-reports';
+  static const String adminProfile = 'admin-profile';
 }
 
 abstract final class RoutePaths {
@@ -52,4 +59,11 @@ abstract final class RoutePaths {
   static const String providerRequests = '/provider-home/requests';
   static const String providerChatList = '/provider-home/chats';
   static const String providerProfileEdit = '/provider-home/profile';
+
+  // Admin
+  static const String admin = '/admin';
+  static const String adminUsers = '/admin/users';
+  static const String adminBookings = '/admin/bookings';
+  static const String adminReports = '/admin/reports';
+  static const String adminProfile = '/admin/profile';
 }

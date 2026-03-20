@@ -18,6 +18,14 @@ import 'package:sweet_mobile_app/features/chat/presentation/pages/chat_page.dart
 import 'package:sweet_mobile_app/features/provider_dashboard/presentation/pages/provider_dashboard_page.dart';
 import 'package:sweet_mobile_app/features/provider_dashboard/presentation/pages/provider_services_page.dart';
 import 'package:sweet_mobile_app/features/provider_dashboard/presentation/pages/provider_requests_page.dart';
+import 'package:sweet_mobile_app/features/provider_dashboard/presentation/pages/provider_chat_list_page.dart';
+import 'package:sweet_mobile_app/features/provider_dashboard/presentation/pages/provider_profile_edit_page.dart';
+import 'package:sweet_mobile_app/features/admin/presentation/widgets/admin_shell.dart';
+import 'package:sweet_mobile_app/features/admin/presentation/pages/admin_dashboard_page.dart';
+import 'package:sweet_mobile_app/features/admin/presentation/pages/admin_users_page.dart';
+import 'package:sweet_mobile_app/features/admin/presentation/pages/admin_bookings_page.dart';
+import 'package:sweet_mobile_app/features/admin/presentation/pages/admin_reports_page.dart';
+import 'package:sweet_mobile_app/features/admin/presentation/pages/admin_profile_page.dart';
 import 'package:sweet_mobile_app/shared/widgets/main_shell.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -40,17 +48,33 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       if (!isLoggedIn && !isAuthRoute) return RoutePaths.login;
       if (isLoggedIn && isAuthRoute) {
-        return role == 'PROVIDER'
-            ? RoutePaths.providerDashboard
-            : RoutePaths.home;
+        return switch (role) {
+          'ADMIN' => RoutePaths.admin,
+          'PROVIDER' => RoutePaths.providerDashboard,
+          _ => RoutePaths.home,
+        };
       }
 
-      // Proveedores no acceden a rutas de cliente y viceversa
-      if (isLoggedIn && role == 'PROVIDER' && location.startsWith('/home')) {
-        return RoutePaths.providerDashboard;
-      }
-      if (isLoggedIn && role == 'CLIENT' && location.startsWith('/provider-home')) {
-        return RoutePaths.home;
+      // Aislamiento de zonas por rol
+      if (isLoggedIn) {
+        // Admin bloqueado de zonas cliente/proveedor
+        if (role == 'ADMIN' && !location.startsWith('/admin')) {
+          return RoutePaths.admin;
+        }
+        // Proveedor bloqueado de zona cliente y admin
+        if (role == 'PROVIDER' && location.startsWith('/home')) {
+          return RoutePaths.providerDashboard;
+        }
+        if (role == 'PROVIDER' && location.startsWith('/admin')) {
+          return RoutePaths.providerDashboard;
+        }
+        // Cliente bloqueado de zona proveedor y admin
+        if (role == 'CLIENT' && location.startsWith('/provider-home')) {
+          return RoutePaths.home;
+        }
+        if (role == 'CLIENT' && location.startsWith('/admin')) {
+          return RoutePaths.home;
+        }
       }
 
       return null;
@@ -132,12 +156,44 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: RoutePaths.providerChatList,
             name: RouteNames.providerChatList,
-            builder: (_, __) => const NotificationsPage(), // temporal
+            builder: (_, __) => const ProviderChatListPage(),
           ),
           GoRoute(
             path: RoutePaths.providerProfileEdit,
             name: RouteNames.providerProfileEdit,
-            builder: (_, __) => const ProfilePage(), // temporal
+            builder: (_, __) => const ProviderProfileEditPage(),
+          ),
+        ],
+      ),
+
+      // ── Shell Admin ───────────────────────────────────────
+      ShellRoute(
+        builder: (_, __, child) => AdminShell(child: child),
+        routes: [
+          GoRoute(
+            path: RoutePaths.admin,
+            name: RouteNames.admin,
+            builder: (_, __) => const AdminDashboardPage(),
+          ),
+          GoRoute(
+            path: RoutePaths.adminUsers,
+            name: RouteNames.adminUsers,
+            builder: (_, __) => const AdminUsersPage(),
+          ),
+          GoRoute(
+            path: RoutePaths.adminBookings,
+            name: RouteNames.adminBookings,
+            builder: (_, __) => const AdminBookingsPage(),
+          ),
+          GoRoute(
+            path: RoutePaths.adminReports,
+            name: RouteNames.adminReports,
+            builder: (_, __) => const AdminReportsPage(),
+          ),
+          GoRoute(
+            path: RoutePaths.adminProfile,
+            name: RouteNames.adminProfile,
+            builder: (_, __) => const AdminProfilePage(),
           ),
         ],
       ),

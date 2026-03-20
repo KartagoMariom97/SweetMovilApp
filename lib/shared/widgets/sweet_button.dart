@@ -15,6 +15,36 @@ class SweetButton extends StatelessWidget {
     this.height = 52,
   });
 
+  const SweetButton.primary({
+    super.key,
+    required this.label,
+    required this.onPressed,
+    this.isLoading = false,
+    this.icon,
+    this.width,
+    this.height = 52,
+  }) : variant = SweetButtonVariant.primary;
+
+  const SweetButton.outlined({
+    super.key,
+    required this.label,
+    required this.onPressed,
+    this.isLoading = false,
+    this.icon,
+    this.width,
+    this.height = 52,
+  }) : variant = SweetButtonVariant.outlined;
+
+  const SweetButton.ghost({
+    super.key,
+    required this.label,
+    required this.onPressed,
+    this.isLoading = false,
+    this.icon,
+    this.width,
+    this.height = 52,
+  }) : variant = SweetButtonVariant.ghost;
+
   final String label;
   final VoidCallback? onPressed;
   final SweetButtonVariant variant;

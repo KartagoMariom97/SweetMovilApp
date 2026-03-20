@@ -8,6 +8,7 @@ class EmptyState extends StatelessWidget {
     required this.title,
     this.subtitle,
     this.action,
+    this.onAction,
     this.actionLabel,
   });
 
@@ -15,6 +16,7 @@ class EmptyState extends StatelessWidget {
   final String title;
   final String? subtitle;
   final VoidCallback? action;
+  final VoidCallback? onAction;
   final String? actionLabel;
 
   @override
@@ -46,9 +48,11 @@ class EmptyState extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ],
-            if (action != null && actionLabel != null) ...[
+            if ((action != null || onAction != null) && actionLabel != null) ...[
               const SizedBox(height: 24),
-              TextButton(onPressed: action, child: Text(actionLabel!)),
+              TextButton(
+                  onPressed: action ?? onAction,
+                  child: Text(actionLabel!)),
             ],
           ],
         ),
