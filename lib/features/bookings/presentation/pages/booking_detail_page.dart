@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sweet_mobile_app/core/router/route_names.dart';
 import 'package:sweet_mobile_app/core/theme/app_colors.dart';
 import 'package:sweet_mobile_app/features/bookings/presentation/providers/bookings_notifier.dart';
+import 'package:sweet_mobile_app/features/reviews/presentation/widgets/review_sheet.dart';
 import 'package:sweet_mobile_app/shared/widgets/booking_status_chip.dart';
 import 'package:sweet_mobile_app/shared/widgets/empty_state.dart';
 import 'package:sweet_mobile_app/shared/widgets/sweet_button.dart';
@@ -92,15 +93,34 @@ class BookingDetailPage extends ConsumerWidget {
 
               const SizedBox(height: 24),
 
+              // ── Reseña (solo en COMPLETED) ─────────────────
+              if (booking.status == 'COMPLETED') ...[
+                SweetButton.primary(
+                  label: 'Dejar reseña',
+                  icon: Icons.star_rounded,
+                  onPressed: () => showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: AppColors.surface,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20)),
+                    ),
+                    builder: (_) =>
+                        ReviewSheet(bookingId: booking.id),
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
+
               // ── Ir al chat ────────────────────────────────
               SweetButton(
                 label: 'Abrir chat',
                 variant: SweetButtonVariant.outlined,
                 icon: Icons.chat_rounded,
                 onPressed: () {
-                  // Crear/obtener conversación y navegar al chat
-                  // La lógica de crear conversación es en ChatPage
-                  context.push('/chat/new?providerId=${booking.providerId}&bookingId=${booking.id}');
+                  context.go(
+                      '/chat/new?providerId=${booking.providerId}&bookingId=${booking.id}');
                 },
               ),
             ],

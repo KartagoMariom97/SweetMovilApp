@@ -263,4 +263,4 @@ feature/
 | 12 | ✅ Completada | Flujo cliente — Home, Búsqueda, Perfil jornalista, Reserva, Chat WebSocket |
 | 13 | ✅ Completada | Flujo jornalista — Dashboard, Servicios, Solicitudes, Chat |
 | 14 | ✅ Completada | Admin panel — Dashboard, Usuarios, Reservas, Trust Reports, Perfil Admin |
-| 15 | Pendiente | Integration & QA |
+| 15 | ✅ Completada | Integration & QA — Profile cliente, Notificaciones, Reseñas, fix SplashPage ADMIN |

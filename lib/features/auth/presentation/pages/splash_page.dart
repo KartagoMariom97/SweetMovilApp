@@ -33,7 +33,12 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       final role = await storage.getUserRole();
       ref.read(authStateProvider).setLoggedIn(role: role ?? 'CLIENT');
       if (!mounted) return;
-      context.go(role == 'PROVIDER' ? RoutePaths.providerDashboard : RoutePaths.home);
+      final destination = switch (role) {
+        'ADMIN' => RoutePaths.admin,
+        'PROVIDER' => RoutePaths.providerDashboard,
+        _ => RoutePaths.home,
+      };
+      context.go(destination);
     } else {
       final local = ref.read(localStorageProvider);
       context.go(
