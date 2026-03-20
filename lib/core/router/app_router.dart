@@ -153,9 +153,18 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RoutePaths.chat,
         name: RouteNames.chat,
-        builder: (_, state) => ChatPage(
-          conversationId: state.pathParameters['id']!,
-        ),
+        builder: (_, state) {
+          final id = state.pathParameters['id']!;
+          // Si id == 'new', pasamos los query params al notifier
+          if (id == 'new') {
+            final providerId = state.uri.queryParameters['providerId'] ?? '';
+            final bookingId = state.uri.queryParameters['bookingId'];
+            final arg = 'new?providerId=$providerId'
+                '${bookingId != null ? '&bookingId=$bookingId' : ''}';
+            return ChatPage(conversationId: arg);
+          }
+          return ChatPage(conversationId: id);
+        },
       ),
       GoRoute(
         path: RoutePaths.bookingDetail,

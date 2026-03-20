@@ -260,7 +260,7 @@ feature/
 |------|--------|-------------|
 | 10 | ✅ Completada | Setup Flutter — core, theme, router, DI, design system |
 | 11 | ✅ Completada | Auth feature — Login, Register, AuthNotifier, Clean Architecture |
-| 12 | Pendiente | Flujo cliente — Home, Búsqueda, Perfil jornalista, Reserva, Chat |
+| 12 | ✅ Completada | Flujo cliente — Home, Búsqueda, Perfil jornalista, Reserva, Chat WebSocket |
 | 13 | Pendiente | Flujo jornalista — Dashboard, Servicios, Solicitudes, Chat |
 | 14 | Pendiente | Admin panel (web) |
 | 15 | Pendiente | Integration & QA |
