@@ -1,0 +1,53 @@
+name: sweet_mobile_app
+description: Sweet — Marketplace de servicios de confianza
+version: 1.0.0+1
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # ── Estado ─────────────────────────────────────────────────
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # ── Navegación ─────────────────────────────────────────────
+  go_router: ^14.2.7
+
+  # ── HTTP & WebSocket ───────────────────────────────────────
+  dio: ^5.7.0
+  web_socket_channel: ^3.0.1
+
+  # ── Serialización ──────────────────────────────────────────
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.9.0
+
+  # ── Almacenamiento ─────────────────────────────────────────
+  flutter_secure_storage: ^9.2.2
+  shared_preferences: ^2.3.2
+  hive_flutter: ^1.1.0
+
+  # ── UI ─────────────────────────────────────────────────────
+  cached_network_image: ^3.4.1
+  flutter_animate: ^4.5.0
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.12
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+  riverpod_generator: ^2.4.3
+  custom_lint: ^0.6.7
+  riverpod_lint: ^2.3.10
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
